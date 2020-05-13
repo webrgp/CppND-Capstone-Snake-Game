@@ -24,9 +24,9 @@ class Player {
   private:
 
     int findPlayerScore(std::string& name);
-    bool isNewPlayer;
-    std::string name;
-    int score;
+    bool _isNewPlayer;
+    std::string _name;
+    int _score;
 
 };
 #endif

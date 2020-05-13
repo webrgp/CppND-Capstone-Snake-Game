@@ -1,31 +1,31 @@
 #include "player.h"
 
-Player::Player(std::string name): name(name) {
-  score = findPlayerScore(name);
-  isNewPlayer = (score == 0) ? true : false;
+Player::Player(std::string name): _name(name) {
+  _score = findPlayerScore(name);
+  _isNewPlayer = (_score == 0) ? true : false;
 }
 
-Player::Player(std::string name, int score): name(name), score(score), isNewPlayer(false){}
+Player::Player(std::string name, int score): _name(name), _score(score), _isNewPlayer(false){}
 
-int Player::getScore() const { return score; }
-std::string Player::getName() const { return name;}
+int Player::getScore() const { return _score; }
+std::string Player::getName() const { return _name;}
 
-int Player::findPlayerScore(std::string& name)
+int Player::findPlayerScore(std::string& playerName)
 {
   std::ifstream f;
   f.open(SCORES_FILENAME);
 
-  int pscore;
+  int score;
   std::string line;
-  std::string pname;
+  std::string name;
 
   if(f) {
     while(std::getline(f, line)) {
       std::istringstream lineStream(line);
-      lineStream >> pname >> pscore;
-      if(pname == name)
+      lineStream >> name >> score;
+      if(name == playerName)
       {
-        return pscore;
+        return score;
       }
     }
 
@@ -35,17 +35,17 @@ int Player::findPlayerScore(std::string& name)
   return 0;
 }
 
-void Player::setScore(const int &s) {
-  score = s;
+void Player::setScore(const int &score) {
+  _score = score;
 }
 
 void Player::saveScore() {
 
   std::vector<Player> players;
 
-  int pscore;
+  int score;
   std::string line;
-  std::string pname;
+  std::string name;
 
   std::ifstream f;
   f.open(SCORES_FILENAME);
@@ -53,24 +53,24 @@ void Player::saveScore() {
   if(f) {
     while(getline(f, line)){
       std::istringstream lineStream(line);
-      lineStream >> pname;
-      if(pname == this->name)
-        pscore = this->score;
+      lineStream >> name;
+      if(name == _name)
+        score = _score;
       else
-        lineStream >> pscore;
-      players.push_back(Player(pname, pscore));
+        lineStream >> score;
+      players.push_back(Player(name, score));
     }
 
     f.close();
   }
 
-  if(this->isNewPlayer) {
-    players.push_back(Player(this->name, this->score));
+  if(_isNewPlayer) {
+    players.push_back(Player(_name, _score));
   }
 
   //sort top score
   std::sort(players.begin(), players.end(), [](const Player a, const Player &b) -> bool{
-    return a.score > b.score;
+    return a._score > b._score;
   });
 
   // Update scores
@@ -78,7 +78,7 @@ void Player::saveScore() {
   fout.open(SCORES_FILENAME, std::ofstream::trunc);
   for(auto &player: players)
   {
-    fout << player.name << " " << std::to_string(player.score) << std::endl;
+    fout << player._name << " " << std::to_string(player._score) << std::endl;
   }
 	fout.close();
 }
