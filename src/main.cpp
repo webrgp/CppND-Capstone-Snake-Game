@@ -2,6 +2,7 @@
 #include "controller.h"
 #include "game.h"
 #include "renderer.h"
+#include "gmenu.h"
 
 int main() {
   constexpr std::size_t kFramesPerSecond{60};
@@ -11,8 +12,18 @@ int main() {
   constexpr std::size_t kGridWidth{32};
   constexpr std::size_t kGridHeight{32};
 
+  GMenu gm;
+
+  gm.displayPlayerNamePrompt();
+
+  std::string playerName = gm.getPlayerName();
+
+  std::cout << "Player name is " << playerName << "\n";
+
+
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
+
   Game game(kGridWidth, kGridHeight);
   game.Run(controller, renderer, kMsPerFrame);
   std::cout << "Game has terminated successfully!\n";
