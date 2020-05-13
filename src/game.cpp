@@ -2,12 +2,22 @@
 #include <iostream>
 #include "SDL.h"
 
-Game::Game(std::size_t grid_width, std::size_t grid_height)
+Game::Game(std::size_t grid_width, std::size_t grid_height, std::string playerName)
     : snake(grid_width, grid_height),
+      player(playerName),
       engine(dev()),
       random_w(0, static_cast<int>(grid_width)),
       random_h(0, static_cast<int>(grid_height)) {
   PlaceFood();
+}
+
+Game::~Game() {
+  player.saveScore();
+
+  std::cout << "Game has terminated successfully!\n";
+  std::cout << "Player Name: " << player.getName() << "\n";
+  std::cout << "Score: " << GetScore() << "\n";
+  std::cout << "Size: " << GetSize() << "\n";
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -36,7 +46,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000) {
-      renderer.UpdateWindowTitle(score, frame_count);
+      renderer.UpdateWindowTitle(score, frame_count, player);
       frame_count = 0;
       title_timestamp = frame_end;
     }
