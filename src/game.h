@@ -7,10 +7,11 @@
 #include "renderer.h"
 #include "snake.h"
 #include "player.h"
+#include "gmenu.h"
 
 class Game {
  public:
-  Game(std::size_t grid_width, std::size_t grid_height, std::string playerName);
+  Game(std::size_t grid_width, std::size_t grid_height, GMenu &gm);
   ~Game();
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
@@ -29,7 +30,8 @@ class Game {
 
   int score{0};
 
-  Player player;
+  Player _player;
+  GMenu _gm;
 
   void PlaceFood();
   void Update();

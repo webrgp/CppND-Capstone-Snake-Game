@@ -19,7 +19,7 @@ int main() {
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
 
-  Game game(kGridWidth, kGridHeight, gm.getPlayerName());
+  Game game(kGridWidth, kGridHeight, gm);
   game.Run(controller, renderer, kMsPerFrame);
 
   return 0;
