@@ -14,11 +14,7 @@ Game::Game(std::size_t grid_width, std::size_t grid_height, GMenu &gm)
 
 Game::~Game() {
   _player.saveScore();
-
-  std::cout << "Game has terminated successfully!\n";
-  std::cout << "Player Name: " << _player.name() << "\n";
-  std::cout << "Score: " << GetScore() << "\n";
-  std::cout << "Size: " << GetSize() << "\n";
+  _gm.displayPlayerScore(_player.name(), GetScore(), GetSize());
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,

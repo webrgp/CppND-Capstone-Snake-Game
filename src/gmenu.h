@@ -10,6 +10,7 @@ class GMenu {
     GMenu(){};
     ~GMenu(){};
     void displayPlayerNamePrompt();
+    void displayPlayerScore(std::string name, int score, int size);
     std::string getPlayerName();
   private:
     std::string _playerName;

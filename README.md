@@ -29,3 +29,32 @@ In this project, you can build your own C++ application or extend this Snake gam
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./SnakeGame`.
+
+## General description
+
+When the snake game starts, player will be asked to enter his/her name. After that a play window will pop-up with the snake and food. The player must use keyboard to move the snake toward food. If the snake hit the food the player will receive a score, and another food will be created at another place in the playing window. If the snake hit its body it will die and the game is over.
+
+The player score is stored in a file after the game finishes. When the game starts the record will be read from the file and when the game finishes, if a new score is established, it will be written in the `scores.txt` file.
+
+## Code structure
+
+The code is organized in following modules:
+
+controller
+- game
+- gmenu
+- player
+- renderer
+- snake
+
+| class name | Purpose  |
+|------------|----------|
+| Controller | Interact with users, let users use keyboard to control the snake in the game. |
+| Game       | Game class stores the state in the game, running in loops til end. |
+| GMenu      | Game Menu class handles command line player I/O. |
+| Player     | Basic information about the player and storing the the score. |
+| Render     | render the game to the screen. |
+| Snake      | contains attributes to keep track of the Snake speed, size, and location. |
+
+## Rubric Points
+
