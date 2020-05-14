@@ -58,3 +58,16 @@ controller
 
 ## Rubric Points
 
+### Loops, Functions, I/O
+
+- The project demonstrates an understanding of C++ functions and control structures. I used a lot of control structures and loops throut the code. In the `player.cpp` for example, in the [`Player::saveScore()`](https://github.com/webrgp/CppND-Capstone-Snake-Game/blob/c23a6e092744aef94c9cf6917c1e1b0e547b3702/src/player.cpp#L32-L46) method, I used if-statements to check if the `scores.txt` file exists, if not, then the program will create one. A while-loop to write the player data to the file.
+
+- The project accepts user input and processes the input. The *GMenu* class is defined to accept user input and process the input. In `gmenu.cpp` [`GMenu::displayPlayerNamePrompt()`](https://github.com/webrgp/CppND-Capstone-Snake-Game/blob/c23a6e092744aef94c9cf6917c1e1b0e547b3702/src/gmenu.cpp#L3-L16), will let the user enter his player name to be used in the `scores.txt` file.
+
+### Object Oriented Programming
+
+- The project uses Object Oriented Programming techniques. The [*GMenu*](https://github.com/webrgp/CppND-Capstone-Snake-Game/blob/master/src/gmenu.cpp) class and [*Player*](https://github.com/webrgp/CppND-Capstone-Snake-Game/blob/master/src/player.cpp) class are defined to improve the structure of the program. Classes use appropriate access specifiers for class members and utilize member initialization lists.
+
+### Memory Management
+
+- Modify the `Game` contructor to use `GMenu` reference in the [`Game::Game(std::size_t grid_width, std::size_t grid_height, GMenu &gm)`](https://github.com/webrgp/CppND-Capstone-Snake-Game/blob/c23a6e092744aef94c9cf6917c1e1b0e547b3702/src/game.cpp#L5) line.
