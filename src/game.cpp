@@ -16,7 +16,7 @@ Game::~Game() {
   _player.saveScore();
 
   std::cout << "Game has terminated successfully!\n";
-  std::cout << "Player Name: " << _player.getName() << "\n";
+  std::cout << "Player Name: " << _player.name() << "\n";
   std::cout << "Score: " << GetScore() << "\n";
   std::cout << "Size: " << GetSize() << "\n";
 }
@@ -47,7 +47,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000) {
-      renderer.UpdateWindowTitle(score, frame_count, _player);
+      renderer.UpdateWindowTitle(frame_count, _player);
       frame_count = 0;
       title_timestamp = frame_end;
     }
@@ -86,7 +86,7 @@ void Game::Update() {
 
   // Check if there's food over here
   if (food.x == new_x && food.y == new_y) {
-    score++;
+    _player.incrementScore();
     PlaceFood();
     // Grow snake and increase speed.
     snake.GrowBody();
@@ -94,5 +94,5 @@ void Game::Update() {
   }
 }
 
-int Game::GetScore() const { return score; }
+int Game::GetScore() const { return _player.score(); }
 int Game::GetSize() const { return snake.size; }

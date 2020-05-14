@@ -1,48 +1,27 @@
 #include "player.h"
 
 Player::Player(std::string name): _name(name) {
-  _score = findPlayerScore(name);
-  _isNewPlayer = (_score == 0) ? true : false;
+  _score = 0;
 }
 
-Player::Player(std::string name, int score): _name(name), _score(score), _isNewPlayer(false){}
+Player::Player(std::string name, int score): _name(name), _score(score) {}
 
-int Player::getScore() const { return _score; }
-std::string Player::getName() const { return _name;}
-
-int Player::findPlayerScore(std::string& playerName)
-{
-  std::ifstream f;
-  f.open(SCORES_FILENAME);
-
-  int score;
-  std::string line;
-  std::string name;
-
-  if(f) {
-    while(std::getline(f, line)) {
-      std::istringstream lineStream(line);
-      lineStream >> name >> score;
-      if(name == playerName)
-      {
-        return score;
-      }
-    }
-
-    f.close();
-  }
-
-  return 0;
-}
-
-void Player::setScore(const int &score) {
+int Player::score() const { return _score; }
+void Player::score(const int &score) {
   _score = score;
 }
+
+void Player::incrementScore() {
+  _score++;
+}
+
+std::string Player::name() const { return _name;}
 
 void Player::saveScore() {
 
   std::vector<Player> players;
 
+  bool isNewPlayer{true};
   int score;
   std::string line;
   std::string name;
@@ -54,18 +33,20 @@ void Player::saveScore() {
     while(getline(f, line)){
       std::istringstream lineStream(line);
       lineStream >> name;
-      if(name == _name)
-        score = _score;
-      else
+      if(name == this->_name) {
+        score = this->_score;
+        isNewPlayer = false;
+      } else {
         lineStream >> score;
+      }
       players.push_back(Player(name, score));
     }
 
     f.close();
   }
 
-  if(_isNewPlayer) {
-    players.push_back(Player(_name, _score));
+  if(isNewPlayer) {
+    players.push_back(Player(this->_name, this->_score));
   }
 
   //sort top score

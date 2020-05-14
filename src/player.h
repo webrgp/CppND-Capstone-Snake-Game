@@ -15,18 +15,16 @@ class Player {
     Player(std::string name);
     Player(std::string name, int score);
 
-    int getScore() const;
-    std::string getName() const;
+    int score() const;
+    void score(const int& score);
+    void incrementScore();
 
-    void setScore(const int& s);
+    std::string name() const;
     void saveScore();
 
   private:
 
-    int findPlayerScore(std::string& name);
-    bool _isNewPlayer;
     std::string _name;
-    int _score;
-
+    int _score{0};
 };
 #endif
